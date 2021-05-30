@@ -18,14 +18,14 @@ bool all(vector<int> freq)
 int func(vector<int> q, int f, int l, int pop_count, vector<int> freq)
 {
 	if (l == f || all(freq))
-		return pop_count + 1;
+		return pop_count;
 
 	freq[f]++;
 	int x = func(q, f + 1, l, pop_count + 1, freq);
 	freq[f]--;
 
 	freq[l]++;
-	int y = func(q, f, l + 1, pop_count + 1, freq);
+	int y = func(q, f, l - 1, pop_count + 1, freq);
 
 	return min(x, y);
 }
@@ -40,17 +40,17 @@ void solve()
 	{
 		cin >> q[i];
 	}
-
-	cout << func(q, 0, m - 1, 0, vector<int>(m, 0));
+	vector<int> f(m, 0);
+	cout << func(q, 0, m - 1, 0, f);
 }
 
 int main(int argc, char const *argv[])
 {
 	fast;
-	// #ifndef ONLINE_JUDGE
-	// 	freopen("input", "r", stdin);
-	// 	freopen("output", "w", stdout);
-	// #endif
+#ifndef ONLINE_JUDGE
+	freopen("input", "r", stdin);
+	freopen("output", "w", stdout);
+#endif
 	int t;
 	cin >> t;
 	while (t--)
