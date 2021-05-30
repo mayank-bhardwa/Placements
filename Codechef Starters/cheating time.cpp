@@ -1,25 +1,35 @@
 #include <iostream>
 #include <vector>
-#define deb(x) cout<<#x<<" "<<x<<"\n"
-#define fast ios_base::sync_with_stdio(false);cin.tie(0);
+#include <algorithm>
+#define deb(x) cout << #x << " " << x << "\n"
+#define fast                          \
+	ios_base::sync_with_stdio(false); \
+	cin.tie(0);
 using namespace std;
 
 void solve()
 {
-	long long n, k, f;
+	int n, k, f;
 	cin >> n >> k >> f;
-	long long s, e;
-	long long c=0;
-	for (long long i = 0; i < n; ++i)
+	vector<pair<int, int>> invi(n);
+	int gap = 0;
+	vector<int> c(f, 1);
+
+	for (int i = 0; i < n; ++i)
 	{
-		cin >> s >> e;
-		c+= e-s;
+		cin >> invi[i].first >> invi[i].second;
+		for (int j = invi[i].first; j < invi[i].second; j++)
+		{
+			c[j] = 0;
+		}
 	}
 
-	c = f-c;
-
-	if(c >= k)cout<<"YES";
-	else cout<<"NO";
+	for (auto i : c)
+		gap += i;
+	if (gap >= k)
+		cout << "YES";
+	else
+		cout << "NO";
 }
 
 int main(int argc, char const *argv[])
@@ -29,7 +39,7 @@ int main(int argc, char const *argv[])
 	freopen("input", "r", stdin);
 	freopen("output", "w", stdout);
 #endif
-	long long t;
+	int t;
 	cin >> t;
 	while (t--)
 	{
