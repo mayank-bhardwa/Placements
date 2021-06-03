@@ -1,5 +1,4 @@
 /.vscode
 /a.exe
 a
-input
-output
+*.txt
