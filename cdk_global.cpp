@@ -5,18 +5,20 @@ using namespace std;
 vector<vector<int>> g;
 vector<int> value;
 vector<bool> visited;
-int dfsMax(int u, int c)
+
+void dfsMax(int u, int &c)
 {
     visited[u] = true;
     c += value[u];
+    int t = c;
     for (auto i : g[u])
     {
         if (!visited[i])
         {
-            c = max(c, dfsMax(i, c));
+            dfsMax(i, c);
+            c = max(c, t);
         }
     }
-    return c;
 }
 
 int main(int argc, char const *argv[])
@@ -38,9 +40,9 @@ int main(int argc, char const *argv[])
     }
 
     visited = vector<bool>(n + 1, false);
-    int re = dfsMax(1, 0);
+    int re = 0;
+    dfsMax(1, re);
 
     cout << max(re + k, k);
-
     return 0;
 }
