@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html style="width: 100%;">
+
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" href="./login.css">
+    <style>
+        input {
+            border-width: 0 0 2px;
+        }
+
+        input:focus {
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <h1>LOGIN</h1>
+        <form onsubmit="submitHandler()">
+            <div class="email-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" placeholder="Email" />
+            </div>
+
+            <div class="password-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" placeholder="Password" />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function submitHandler() {
+            var email = document.getElementById("email").value
+            var pass = document.getElementById("password").value
+
+            if (email.length == 0 & pass.length == 0) {
+                alert("email & password is compulsory")
+            }
+            else if (email.length == 0) alert("email is required")
+            else if (pass.length == 0) alert("password is required")
+            else alert("Login successful")
+        }
+    </script>
+</body>
+
+</html>
