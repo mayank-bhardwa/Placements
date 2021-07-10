@@ -3,43 +3,24 @@
 #include <ostream>
 using namespace std;
 
-class Employee
+class Test
 {
-	int empid;
-	string empName;
+	int data;
 
 public:
-	Employee(string name, int empid)
+	Test(int data)
 	{
-		this->empid = empid;
-		this->empName = name;
+		this->data = data;
+		cout << "Constructor invoked\n";
 	}
-
-	~Employee()
-	{
-		cout << "\nDestructor";
-	}
-
-	friend void operator<<(ostream &, Employee);
+	~Test() { cout << "Destructor invoked\n"; }
 };
-
-void operator<<(ostream &out, Employee e)
-{
-	out << e.empName << " " << e.empid << " ";
-}
 
 int main(int argc, char const *argv[])
 {
 	{
-		Employee *emp = new Employee("Ram", 243);
-		unique_ptr<Employee> uptr(emp);
-		cout << *emp;
+		unique_ptr<Test> uptr = make_unique<Test>(54);
 	}
 
-	{
-		Employee *emp = new Employee("Ram", 234);
-		auto_ptr<Employee> aptr(emp);
-		cout << *emp;
-	}
 	return 0;
 }
