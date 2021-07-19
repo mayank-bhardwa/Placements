@@ -10,34 +10,23 @@ struct TreeNode
     TreeNode(int val) : val(val), left(nullptr), right(nullptr) {}
 };
 
+TreeNode *util(TreeNode *root, TreeNode *l, TreeNode *h)
+{
+    if (root->val >= l->val && root->val <= h->val)
+        return root;
+
+    if (root->val > l->val)
+        return util(root->left, l, h);
+    else
+        return util(root->right, l, h);
+}
+
 TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 {
-    stack<TreeNode *> s;
-    s.push(root);
-    TreeNode *mn = new TreeNode(INT32_MAX), *temp;
-    int v = 0;
-    while (!s.empty())
-    {
-        temp = s.top();
-        s.pop();
-        if (temp->left != nullptr)
-            s.push(temp->left);
-        if (temp->right != nullptr)
-            s.push(temp->right);
+    if (p->val < q->val)
+        return util(root, p, q);
 
-        if ((temp == p || temp == q) && v == 0)
-            ++v;
-        else if ((temp == p || temp == q) && v == 1)
-            return mn;
-
-        if (temp->val < mn->val)
-        {
-            free(mn);
-            mn = temp;
-        }
-    }
-
-    return mn;
+    return util(root, q, p);
 }
 
 TreeNode *insert(TreeNode *root, int val)
@@ -65,11 +54,11 @@ TreeNode *find(TreeNode *root, int val)
 int main()
 {
     TreeNode *root = nullptr;
-    int val[] = {6, 2, 8, 0, 4, 7, 9, 3, 5};
+    int val[] = {3, 1, 4, 2};
     for (int i : val)
         root = insert(root, i);
     TreeNode *p = find(root, 2); //2
-    TreeNode *q = find(root, 8); //8
+    TreeNode *q = find(root, 3); //8
     TreeNode *result = lowestCommonAncestor(root, p, q);
     cout << result->val;
     return 0;
