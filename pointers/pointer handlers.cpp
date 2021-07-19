@@ -1,14 +1,12 @@
 #include <iostream>
 #include <memory>
-#include <ostream>
 using namespace std;
 
 class Test
 {
-	int data;
-
 public:
-	Test(int data)
+	string data;
+	Test(string data)
 	{
 		this->data = data;
 		cout << "Constructor invoked\n";
@@ -19,7 +17,13 @@ public:
 int main(int argc, char const *argv[])
 {
 	{
-		unique_ptr<Test> uptr = make_unique<Test>(54);
+		unique_ptr<Test> uptr = make_unique<Test>("Unique");
+		cout << uptr->data << "\n";
+	}
+
+	{
+		shared_ptr<Test> sptr = make_shared<Test>("Shared");
+		cout << sptr->data << "\n";
 	}
 
 	return 0;
